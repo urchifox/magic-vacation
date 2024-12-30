@@ -1,21 +1,22 @@
 .page-header {
+  --padding-inline: 2.7rem;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  padding: 2.7rem 0;
+  padding: var(--padding-inline) 0;
   z-index: 10;
 
   @media (min-width: $stop-scaling) {
-    padding: 27px 0;
+    --padding-inline: 27px;
   }
 
   @media (max-width: $tablet) and (orientation: portrait) {
-    padding: 0.9rem 0;
+    --padding-inline: 0.9rem;
   }
 
   @media (max-width: $mobile) and (orientation: landscape) {
-    padding: 0.9rem 0;
+    --padding-inline: 0.9rem;
   }
 }
 
@@ -35,6 +36,11 @@
   padding: 1rem 0;
   width: 10rem;
   color: $c-light;
+  opacity: 0;
+  transform: translateX(calc(0 * 1px - var(--padding-inline)));
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
 
   @media (min-width: $stop-scaling) {
     top: -5px;
@@ -62,6 +68,11 @@
     .page-header--menu-opened & {
       color: $c-dark;
     }
+  }
+
+  .loaded & {
+    opacity: 1;
+    transform: none;
   }
 
   svg {
@@ -177,6 +188,11 @@
   font-size: 1.2rem;
   line-height: 1.0418;
   color: $c-light;
+  opacity: 0;
+  transform: translateX(var(--padding-inline));
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
 
   @media (min-width: $stop-scaling) {
     font-size: 12px;
@@ -192,6 +208,11 @@
     margin: auto 0;
     font-size: 1.4rem;
     color: $c-dark;
+  }
+
+  .loaded & {
+    opacity: 1;
+    transform: none;
   }
 
   ul {
@@ -268,7 +289,7 @@
     }
 
     &.active {
-      &::after {
+      .loaded &::after {
         left: 0;
         right: auto;
         width: 100%;
@@ -280,7 +301,7 @@
       color: $c-purple;
       outline: none;
 
-      &::after {
+      .loaded &::after {
         left: 0;
         right: auto;
         width: 100%;
