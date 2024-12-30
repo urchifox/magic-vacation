@@ -6,4 +6,7 @@ export default () => {
   socialBlock.addEventListener(`mouseleave`, function () {
     socialBlock.classList.remove(`social-block--active`);
   });
+  socialBlock.querySelectorAll(`li`).forEach((child, index) => {
+    child.style.setProperty(`--index`, index);
+  });
 };
