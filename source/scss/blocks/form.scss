@@ -43,6 +43,8 @@
   border: 0;
   border-radius: 3rem;
   outline: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 
   &:focus {
     border: 1px solid $c-purple;
@@ -75,6 +77,10 @@
     width: calc(100% - 5rem);
     height: 4rem;
     font-size: 1.6rem;
+  }
+
+  .screen.active & {
+    opacity: 1;
   }
 }
 

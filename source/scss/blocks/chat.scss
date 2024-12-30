@@ -185,4 +185,27 @@
 
 .chat__footer {
   margin-top: auto;
+  margin-left: auto;
+  width: min(100%, calc(56px * 2 + 21rem));
+  transition: width 0.6s ease 0.3s;
+
+  @media (min-width: $stop-scaling) {
+    width: min(100%, calc(56px * 2 + 210px));
+  }
+
+  @media (orientation: portrait) {
+    width: min(100%, calc(2.5rem * 2 + 5rem));
+  }
+
+  @media (max-width: $tablet) and (orientation: landscape) {
+    width: min(100%, calc(56px * 2 + 9rem));
+  }
+
+  @media (max-width: $mobile) and (orientation: landscape) {
+    width: min(100%, calc(2.5rem * 2 + 5rem));
+  }
+
+  .screen.active & {
+    width: 100%;
+  }
 }
