@@ -154,6 +154,22 @@
   }
 }
 
+.slider__curtain {
+  position: absolute;
+  z-index: 10;
+  top: 100%;
+  width: 100%;
+  height: 100%;
+  background-color: $c-dark;
+  transform: translateY(-100%);
+  transition: transform 1s ease;
+
+  .screen.active & {
+    transform: translateY(0);
+    transition: transform 0s ease;
+  }
+}
+
 .slider__controls {
   position: absolute;
   bottom: 2.8rem;
