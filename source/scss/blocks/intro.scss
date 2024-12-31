@@ -116,7 +116,7 @@
     line-height: 1.2;
   }
 
-  .screen.active & {
+  .loaded .screen.active & {
     opacity: 1;
     transform: translateY(0);
   }
