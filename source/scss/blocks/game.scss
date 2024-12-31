@@ -42,13 +42,13 @@
 }
 
 .game__title {
+  @include letter-animation;
+  --letter-space: -0.04em;
   margin: 0;
   text-transform: uppercase;
   font-family: $font-alt;
   font-weight: 400;
   font-size: 4.8rem;
-  line-height: 0.906;
-  letter-spacing: -0.04em;
 
   @media (min-width: $stop-scaling) {
     font-size: 48px;

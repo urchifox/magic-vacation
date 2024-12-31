@@ -58,3 +58,27 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+@mixin letter-animation {
+  & > span {
+    overflow: hidden;
+    display: inline-flex;
+  }
+
+  & > span > span {
+    margin-inline-start: var(--letter-space);
+    position: relative;
+    display: inline-block;
+    transform: translateY(133%);
+    will-change: transform;
+    transition: transform var(--letter-duration) ease var(--letter-delay);
+  }
+
+  & > span > span:last-child {
+    margin-right: 0;
+  }
+
+  .screen.active & > span > span {
+    transform: translateY(0);
+  }
+}
