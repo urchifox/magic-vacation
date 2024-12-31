@@ -1,5 +1,7 @@
 export default () => {
-  document.querySelectorAll(`.rules__item`).forEach((child, index) => {
+  const rulesElements = document.querySelectorAll(`.rules__item`);
+  rulesElements.forEach((child, index) => {
     child.style.setProperty(`--index`, index);
   });
+  document.querySelector(`.rules__link`).style.setProperty(`--rules-number`, rulesElements.length.toString());
 };
