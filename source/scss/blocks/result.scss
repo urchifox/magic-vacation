@@ -22,22 +22,47 @@
   }
 }
 
+.result__image-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  transform: translateX(-50%) translateY(-50%);
+
+  @media (max-aspect-ratio: 144 / 76) {
+    /* stylelint-disable unit-no-unknown */
+    width: 190dvh;
+    height: 100dvh;
+    /* stylelint-enable unit-no-unknown */
+  }
+
+  @media (min-aspect-ratio: 144 / 76) {
+    /* stylelint-disable unit-no-unknown */
+    width: 100dvw;
+    height: 52dvw;
+    /* stylelint-enable unit-no-unknown */
+  }
+
+  @media (max-width: $mobile) and (orientation: portrait) and (max-aspect-ratio: 32 / 53) {
+    /* stylelint-disable unit-no-unknown */
+    height: 100dvh;
+    width: 60dvh;
+    /* stylelint-enable unit-no-unknown */
+  }
+
+  @media (max-width: $mobile) and (orientation: portrait) and (min-aspect-ratio: 32 / 53) {
+    /* stylelint-disable unit-no-unknown */
+    height: 165dvw;
+    width: 100dvw;
+    /* stylelint-enable unit-no-unknown */
+  }
+}
+
 .result__image {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: -1;
-
-  @media (orientation: portrait) {
-    left: -1rem;
-    right: -1rem;
-  }
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
 
   picture {
     display: block;
@@ -51,6 +76,56 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
+  }
+
+  &--flamingo {
+    width: 18%;
+    transform: translate(-92%, -5%) rotate(0deg);
+
+    @media (max-width: $mobile) and (orientation: portrait) {
+      width: 63%;
+      transform: translate(-82%, -14%) rotate(0deg);
+    }
+  }
+
+  &--suitcase {
+    width: 24%;
+    transform: translate(-60%, -27%) rotate(0deg);
+
+    @media (max-width: $mobile) and (orientation: portrait) {
+      width: 83%;
+      transform: translate(-53%, -34%) rotate(0deg);
+    }
+  }
+
+  &--leaf-3 {
+    width: 23%;
+    transform: translate(-11%, 26%) rotate(0deg);
+
+    @media (max-width: $mobile) and (orientation: portrait) {
+      width: 80%;
+      transform: translate(-4%, 12%) rotate(0deg);
+    }
+  }
+
+  &--leaf-2 {
+    width: 19%;
+    transform: translate(-125%, 5%) rotate(0deg);
+
+    @media (max-width: $mobile) and (orientation: portrait) {
+      width: 67%;
+      transform: translate(-116%, -6%) rotate(0deg);
+    }
+  }
+
+  &--leaf-1 {
+    width: 19%;
+    transform: translate(1%, -36%) rotate(0deg);
+
+    @media (max-width: $mobile) and (orientation: portrait) {
+      width: 68%;
+      transform: translate(9%, -43%) rotate(0deg);
+    }
   }
 }
 
