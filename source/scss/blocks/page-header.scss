@@ -299,13 +299,13 @@
 
     &:hover,
     &:focus {
-      color: $c-purple;
+      color: var(--accent-state-color);
       outline: none;
 
       .loaded &::after {
         transform-origin: left center;
         transform: scaleX(1);
-        background-color: $c-purple;
+        background-color: var(--accent-state-color);
       }
     }
   }

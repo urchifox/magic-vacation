@@ -29,6 +29,8 @@ html {
 }
 
 body {
+  --basic-state-color: #5f458c;
+  --accent-state-color: #a67ee5;
   position: relative;
   margin: 0;
   padding: 0;
@@ -62,6 +64,21 @@ body {
     @media (max-width: $mobile) and (orientation: landscape) {
       overflow: hidden;
     }
+  }
+
+  &[data-theme="1"] {
+    --basic-state-color: #a07de4;
+    --accent-state-color: #5f458c;
+  }
+
+  &[data-theme="2"] {
+    --basic-state-color: #3e72ee;
+    --accent-state-color: #a0ceff;
+  }
+
+  &[data-theme="3"] {
+    --basic-state-color: #90b8e2;
+    --accent-state-color: #3e72ee;
   }
 }
 
