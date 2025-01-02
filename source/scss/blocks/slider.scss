@@ -200,6 +200,7 @@
   width: 4rem;
   height: 4rem;
   color: $c-dark;
+  transform: translateX(0) rotate(0);
 
   @media (min-width: $stop-scaling) {
     width: 40px;
@@ -260,9 +261,28 @@
     }
   }
 
+  &:nth-child(even) {
+    --axe: 1;
+  }
+
+  &:nth-child(odd) {
+    --axe: -1;
+  }
+
+  .screen.active & {
+    animation: roll 0.9s ease 0s 1 normal both;
+  }
+
   &.swiper-button-disabled {
     opacity: 0.5;
     pointer-events: none;
+  }
+}
+
+@keyframes roll {
+  from {
+    opacity: 0;
+    transform: translateX(calc(var(--axe) * 3.14159 * 50%)) rotate(calc(var(--axe) * 180deg));
   }
 }
 
