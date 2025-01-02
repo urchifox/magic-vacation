@@ -184,7 +184,7 @@
 }
 
 .chat__footer {
-  --input-inline-padding: 5.6rem;
+  --input-inline-padding: 3rem;
   --button-and-margin-size: 21rem;
 
   margin-top: auto;
@@ -192,14 +192,13 @@
   width: min(100%, calc(var(--input-inline-padding) * 2 + var(--button-and-margin-size)));
   transition: width 0.6s ease 0.3s;
 
-
   @media (min-width: $stop-scaling) {
     --input-inline-padding: 56px;
     --button-and-margin-size: 210px;
   }
 
   @media (orientation: portrait) {
-    --input-inline-padding: 2.5rem;
+    --input-inline-padding: 2rem;
     --button-and-margin-size: 5rem;
   }
 
@@ -208,7 +207,7 @@
   }
 
   @media (max-width: $mobile) and (orientation: landscape) {
-    --input-inline-padding: 2.5rem;
+    --input-inline-padding: 2rem;
     --button-and-margin-size: 5rem;
   }
 

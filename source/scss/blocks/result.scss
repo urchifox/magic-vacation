@@ -22,22 +22,47 @@
   }
 }
 
+.result__image-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  transform: translateX(-50%) translateY(-50%);
+
+  @media (max-aspect-ratio: 144 / 76) {
+    /* stylelint-disable unit-no-unknown */
+    width: 190dvh;
+    height: 100dvh;
+    /* stylelint-enable unit-no-unknown */
+  }
+
+  @media (min-aspect-ratio: 144 / 76) {
+    /* stylelint-disable unit-no-unknown */
+    width: 100dvw;
+    height: 52dvw;
+    /* stylelint-enable unit-no-unknown */
+  }
+
+  @media (max-width: $mobile) and (orientation: portrait) and (max-aspect-ratio: 32 / 53) {
+    /* stylelint-disable unit-no-unknown */
+    height: 100dvh;
+    width: 60dvh;
+    /* stylelint-enable unit-no-unknown */
+  }
+
+  @media (max-width: $mobile) and (orientation: portrait) and (min-aspect-ratio: 32 / 53) {
+    /* stylelint-disable unit-no-unknown */
+    height: 165dvw;
+    width: 100dvw;
+    /* stylelint-enable unit-no-unknown */
+  }
+}
+
 .result__image {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: -1;
-
-  @media (orientation: portrait) {
-    left: -1rem;
-    right: -1rem;
-  }
+  top: 50%;
+  left: 50%;
+  opacity: 0;
 
   picture {
     display: block;
@@ -51,6 +76,168 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
+  }
+
+  .screen--show & {
+    opacity: 1;
+  }
+
+  &--flamingo {
+    --translate-x: -92%;
+    --translate-y: -5%;
+    width: 18%;
+    transform: translate(-73%, 110%) rotate(-33deg) scale(0.5);
+    transform-origin: 51%  57%;
+    transition:
+      opacity 0.3s ease 0s,
+      transform 0.9s ease 0s;
+
+    .screen--show & {
+      transform: translate(var(--translate-x), var(--translate-y)) rotate(0deg) scale(1);
+      animation: flamingo-swaying 1.6s linear 1s infinite normal none;
+    }
+
+    @media (max-width: $mobile) and (orientation: portrait) {
+      --translate-x: -82%;
+      --translate-y: -14%;
+      width: 63%;
+      transform: translate(-70%, 77%) rotate(-33deg) scale(0.5);
+    }
+  }
+
+  &--suitcase {
+    width: 24%;
+    transform: translate(-60%, 78%) rotate(22deg) scale(0.5);
+    transition:
+      opacity 0.3s ease 0.3s,
+      transform 0.9s ease 0.3s;
+
+    .screen--show & {
+      transform: translate(-60%, -27%) rotate(0deg) scale(1);
+    }
+
+    @media (max-width: $mobile) and (orientation: portrait) {
+      width: 83%;
+      transform: translate(-53%, 59%) rotate(22deg) scale(0.5);
+
+      .screen--show & {
+        transform: translate(-53%, -34%) rotate(0deg);
+      }
+    }
+  }
+
+  &--leaf-3 {
+    --translate-x: -11%;
+    --translate-y: 26%;
+    --axe: 1;
+    width: 23%;
+    transform: translate(var(--translate-x), var(--translate-y)) rotate(0deg);
+    transform-origin: left center;
+    transition: opacity 0.6s ease 0.6s;
+
+    .screen--show & {
+      animation: leaf-appear 3s ease 0.6s 1 normal both;
+    }
+
+    @media (max-width: $mobile) and (orientation: portrait) {
+      --translate-x: -4%;
+      --translate-y: 12%;
+      width: 80%;
+    }
+  }
+
+  &--leaf-2 {
+    --translate-x: -125%;
+    --translate-y: -5%;
+    --axe: -1;
+    width: 19%;
+    transform: translate(var(--translate-x), var(--translate-y)) rotate(0deg);
+    transform-origin: right center;
+    transition: opacity 0.6s ease 0.9s;
+
+    .screen--show & {
+      animation: leaf-appear 3s ease 0.9s 1 normal both;
+    }
+
+    @media (max-width: $mobile) and (orientation: portrait) {
+      --translate-x: -116%;
+      --translate-y: -6%;
+      width: 67%;
+    }
+  }
+
+  &--leaf-1 {
+    --translate-x: 1%;
+    --translate-y: -36%;
+    --axe: 1;
+    width: 19%;
+    transform: translate(var(--translate-x), var(--translate-y)) rotate(0deg);
+    transform-origin: left bottom;
+    transition: opacity 0.6s ease 1.2s;
+
+    .screen--show & {
+      animation: leaf-appear 3s ease 1.2s 1 normal both;
+    }
+
+    @media (max-width: $mobile) and (orientation: portrait) {
+      --translate-x: 9%;
+      --translate-y: -43%;
+      width: 68%;
+    }
+  }
+}
+
+@keyframes leaf-appear {
+  0% {
+    transform: translate(var(--translate-x), var(--translate-y)) rotate(calc((0deg - 7deg) * var(--axe)));
+    animation-timing-function: ease-in-out;
+  }
+
+  20% {
+    transform: translate(var(--translate-x), var(--translate-y)) rotate(calc(5deg * var(--axe)));
+    animation-timing-function: ease-in-out;
+  }
+
+  40% {
+    transform: translate(var(--translate-x), var(--translate-y)) rotate(calc((0deg - 3deg) * var(--axe)));
+    animation-timing-function: ease-in-out;
+  }
+
+  60% {
+    transform: translate(var(--translate-x), var(--translate-y)) rotate(calc(2deg * var(--axe)));
+    animation-timing-function: ease-in-out;
+  }
+
+  80% {
+    transform: translate(var(--translate-x), var(--translate-y)) rotate(calc((0deg - 1deg) * var(--axe)));
+    animation-timing-function: ease-in-out;
+  }
+
+  100% {
+    transform: translate(var(--translate-x), var(--translate-y)) rotate(calc(0deg * var(--axe)));
+    animation-timing-function: ease-in-out;
+  }
+}
+
+@keyframes flamingo-swaying {
+  0% {
+    transform: translate(var(--translate-x), var(--translate-y)) rotate(0deg);
+  }
+
+  25% {
+    transform: translate(var(--translate-x), calc(2% + var(--translate-y))) rotate(-1deg);
+  }
+
+  50% {
+    transform: translate(var(--translate-x), calc(5% + var(--translate-y))) rotate(0deg);
+  }
+
+  75% {
+    transform: translate(var(--translate-x), calc(2% + var(--translate-y))) rotate(1deg);
+  }
+
+  100% {
+    transform: translate(var(--translate-x), var(--translate-y)) rotate(0deg);
   }
 }
 
@@ -210,7 +397,35 @@
 }
 
 .result__form {
+  --input-inline-padding: 2.5rem;
+  --button-and-margin-size: 32rem;
   margin-top: auto;
+  margin-left: auto;
+  width: min(100%, calc(var(--input-inline-padding) * 2 + var(--button-and-margin-size)));
+  transition: width 0.6s ease 0.6s;
+
+  @media (min-width: $stop-scaling) {
+    --input-inline-padding: 56px;
+    --button-and-margin-size: 210px;
+  }
+
+  @media (orientation: portrait) {
+    --input-inline-padding: 2rem;
+    --button-and-margin-size: 5rem;
+  }
+
+  @media (max-width: $tablet) and (orientation: landscape) {
+    --button-and-margin-size: 9.8rem;
+  }
+
+  @media (max-width: $mobile) and (orientation: landscape) {
+    --input-inline-padding: 2rem;
+    --button-and-margin-size: 5rem;
+  }
+
+  .screen--show & {
+    width: 100%;
+  }
 }
 
 .result--trip,
