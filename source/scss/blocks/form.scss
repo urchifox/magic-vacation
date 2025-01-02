@@ -8,7 +8,7 @@
   position: absolute;
   bottom: 100%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(10%);
   margin-bottom: 1.2rem;
   width: 100%;
   text-transform: uppercase;
@@ -17,6 +17,9 @@
   line-height: 1.2;
   opacity: 0;
   pointer-events: none;
+  transition:
+    opacity 0.3s ease 1.2s,
+    transform 0.3s ease 1.2s;
 
   @media (min-width: $stop-scaling) {
     margin-bottom: 12px;
@@ -24,8 +27,12 @@
   }
 
   @media (orientation: portrait) {
-    opacity: 1;
-    pointer-events: auto;
+    .screen.active &,
+    .screen--show & {
+      opacity: 1;
+      transform: translateX(-50%);
+      pointer-events: auto;
+    }
   }
 }
 
@@ -69,13 +76,29 @@
     font-size: 1.6rem;
   }
 
-  .screen.active & {
+  .screen.active &,
+  .screen--show & {
+    opacity: 1;
+  }
+
+  &::placeholder {
+    opacity: 0;
+    transition: opacity 0.3s ease 0.9s;
+  }
+
+  .screen.active &::placeholder,
+  .screen--show &::placeholder {
     opacity: 1;
   }
 }
 
 .form__button {
   flex-grow: 1;
+  color: transparent;
+  opacity: 0;
+  transition:
+    opacity 0.3s ease 0s,
+    color 0.3s ease 0.3s;
 
   @media (orientation: portrait) {
     position: relative;
@@ -98,6 +121,12 @@
   @media (max-width: $mobile) and (orientation: landscape) {
     width: 4rem;
     height: 4rem;
+  }
+
+  .screen.active &,
+  .screen--show & {
+    color: $c-dark;
+    opacity: 1;
   }
 
   svg {
