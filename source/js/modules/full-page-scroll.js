@@ -48,6 +48,7 @@ export default class FullPageScroll {
   changePageDisplay() {
     this.changeVisibilityDisplay();
     this.changeActiveMenuItem();
+    this.changeTheme();
     this.emitChangeDisplayEvent();
   }
 
@@ -68,6 +69,22 @@ export default class FullPageScroll {
       this.menuElements.forEach((item) => item.classList.remove(`active`));
       activeItem.classList.add(`active`);
     }
+  }
+
+  changeTheme() {
+    if (this.screenElements[this.activeScreen].id !== `story`) {
+      document.body.dataset.theme = ``;
+      return;
+    }
+
+    const sliderItems = document.querySelectorAll(`.swiper-wrapper .slider__item`);
+    const activeIndex = Array.from(sliderItems).findIndex((item) =>
+      item.classList.contains(`swiper-slide-active`)
+    );
+
+    document.body.dataset.theme = activeIndex === -1
+      ? `1`
+      : (Math.floor(activeIndex / 2) + 1).toString();
   }
 
   emitChangeDisplayEvent() {

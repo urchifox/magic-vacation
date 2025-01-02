@@ -199,8 +199,11 @@
   position: relative;
   width: 4rem;
   height: 4rem;
-  color: $c-dark;
+  color: var(--basic-state-color);
   transform: translateX(0) rotate(0);
+  transition:
+    color 0.3s ease,
+    background-color 0.3s ease;
 
   @media (min-width: $stop-scaling) {
     width: 40px;
@@ -232,7 +235,7 @@
   }
 
   &:hover {
-    color: $c-purple;
+    color: var(--accent-state-color);
 
     &::before {
       width: 112.5%;
@@ -241,11 +244,11 @@
   }
 
   &:focus {
-    color: $c-purple;
+    color: var(--accent-state-color);
     outline: none;
 
     &::before {
-      border-color: $c-purple;
+      border-color: var(--accent-state-color);
     }
   }
 
