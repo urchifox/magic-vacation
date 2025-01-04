@@ -12,6 +12,7 @@ export default class FullPageScroll {
     this.activeScreen = 0;
     this.onScrollHandler = this.onScroll.bind(this);
     this.onUrlHashChengedHandler = this.onUrlHashChanged.bind(this);
+    this.prizesSeen = false;
   }
 
   init() {
@@ -50,6 +51,10 @@ export default class FullPageScroll {
     this.changeActiveMenuItem();
     this.changeTheme();
     this.emitChangeDisplayEvent();
+    // without this timeout the animation works wrong in firefox
+    setTimeout(() => {
+      this.runSvgAnimation();
+    }, 1);
   }
 
   changeVisibilityDisplay() {
@@ -86,6 +91,40 @@ export default class FullPageScroll {
       ? `1`
       : (Math.floor(activeIndex / 2) + 1).toString();
   }
+
+  runSvgAnimation() {
+    if (this.screenElements[this.activeScreen].id === `prizes` && !this.prizesSeen) {
+      const svgObject = document.querySelector(`#prize1svg`);
+
+      const runAnimaion = (svgContent) => {
+        const startAnimation = svgContent.getElementById(`start`);
+        if (startAnimation) {
+          startAnimation.beginElement();
+          this.prizesSeen = true;
+        } else {
+          setListener();
+        }
+      };
+
+      const setListener = () => {
+        svgObject.addEventListener(`load`, function () {
+          const svgContent = svgObject.contentDocument;
+          if (svgContent) {
+            runAnimaion(svgContent);
+          }
+        });
+      };
+
+      const svgContent = svgObject.contentDocument;
+
+      if (!svgContent) {
+        setListener();
+      } else {
+        runAnimaion(svgContent);
+      }
+    }
+  }
+
 
   emitChangeDisplayEvent() {
     const event = new CustomEvent(`screenChanged`, {
