@@ -1,24 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="290" height="240" viewBox="30 100 290 240">
-  <style>
-    .airship {
-      animation: airshipDisappear 0.6s 2s forwards;
-    }
-
-    @keyframes airshipDisappear {
-      to {
-        opacity: 0;
-      }
-    }
-  </style>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="30 60 290 290">
+  <animate id="start" begin="indefinite" dur="0.1s" repeatCount="1" />
 
   <!-- Кабина -->
-  <g class="airship" transform-origin="200 220">
+  <g transform-origin="200 220">
     <animateTransform attributeName="transform" type="scale" values="1 1; 1 0.9; 1 1" keyTimes="0; 0.5; 1" keySplines="
         0.3 0 0.3 1;
-        0.3 0 0.3 1" dur="1.8s" end="mountains.end" repeatCount="indefinite" />
+        0.3 0 0.3 1" dur="1.8s" begin="start.begin" end="mountains.end" repeatCount="indefinite" />
     <animateTransform attributeName="transform" type="skewX" values="0; 5; 0" keyTimes="0; 0.5; 1" keySplines="
         0.3 0 0.3 1;
-        0.3 0 0.3 1" dur="1.8s" end="mountains.end" repeatCount="indefinite" additive="sum" />
+        0.3 0 0.3 1" dur="1.8s" begin="start.begin" end="mountains.end" repeatCount="indefinite" additive="sum" />
+    <animate attributeName="opacity" begin="mountains.begin" to="0" dur="0.3s" repeatCount="1" fill="freeze" />
     <path d="M175.44,249.28h48.36a13.27,13.27,0,0,0,13-10.65l3.74-18.32H172.36v25.89A3.09,3.09,0,0,0,175.44,249.28Z"
       fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
     <path
@@ -27,7 +18,7 @@
     <path
       d="M204.25,231.88h-2.05a3.45,3.45,0,0,0-3.43,3.45v2.92a3.45,3.45,0,0,0,3.43,3.45h2.05a3.45,3.45,0,0,0,3.43-3.45v-2.92A3.44,3.44,0,0,0,204.25,231.88Z"
       fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-      <animate attributeName="d" dur="0.6s" begin="1.8s" repeatCount="1"
+      <animate attributeName="d" dur="0.6s" begin="mountains.begin" repeatCount="1"
         values="
       M204.25,231.88h-2.05a3.45,3.45,0,0,0-3.43,3.45v2.92a3.45,3.45,0,0,0,3.43,3.45h2.05a3.45,3.45,0,0,0,3.43-3.45v-2.92A3.44,3.44,0,0,0,204.25,231.88Z;
       M275,225.43H257.87a17.6,17.6,0,0,1-17.52-17.58V170a17.6,17.6,0,0,1,17.52-17.58H275A17.6,17.6,0,0,1,292.51,170v37.83A17.61,17.61,0,0,1,275,225.43Z" fill="freeze" />
@@ -37,18 +28,18 @@
   </g>
 
   <!-- Хвост сзади -->
-  <g class="airship" transform-origin="123 190.98">
-    <animateTransform attributeName="transform" type="translate" begin="-0.9s" values="0 -3; 0 3; 0 -3"
+  <g transform-origin="123 190.98">
+    <animateTransform attributeName="transform" type="translate" begin="start.begin -0.9s" values="0 -3; 0 3; 0 -3"
       keyTimes="0; 0.5; 1" keySplines="
         0.3 0 0.3 1;
         0.3 0 0.3 1" dur="1.8s" end="mountains.end" repeatCount="indefinite" />
-    <animateTransform attributeName="transform" type="scale" begin="-0.9s" values="1 0.9; 1 1; 1 0.9; 1 1; 1 0.9"
-      keyTimes="0; 0.25; 0.5; 0.75; 1" keySplines="
+    <animateTransform attributeName="transform" type="scale" begin="start.begin -0.9s"
+      values="1 0.9; 1 1; 1 0.9; 1 1; 1 0.9" keyTimes="0; 0.25; 0.5; 0.75; 1" keySplines="
         0.3 0 0.3 1;
         0.3 0 0.3 1;
         0.3 0 0.3 1;
         0.3 0 0.3 1" dur="1.8s" end="mountains.end" repeatCount="indefinite" additive="sum" />
-
+    <animate attributeName="opacity" begin="mountains.begin" to="0" dur="0.3s" repeatCount="1" fill="freeze" />
     <path
       d="M123.23,173.34h9.16a3.29,3.29,0,0,1,3.29,3.3v5.71a3.29,3.29,0,0,1-3.29,3.3H115.57a1.32,1.32,0,0,1-1.32-1.32v-2a9,9,0,0,1,9-9"
       fill="#068e4d" />
@@ -65,8 +56,8 @@
   </g>
 
   <!-- Тело дирижабля -->
-  <g class="airship">
-
+  <g>
+    <animate attributeName="opacity" begin="mountains.begin" to="0" dur="0.3s" repeatCount="1" fill="freeze" />
     <defs>
       <linearGradient id="two-color-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
         <stop offset="50%" stop-color="#36e69a" />
@@ -84,23 +75,27 @@
     <path
       d="M132.18,186.12c16.74-4.27,44.58-10,72.81-10,44.53,0,73.26,6.43,73.61,14.38,0,0.17,0,.34,0,0.51-0.85,7.86-29.45,14.17-73.6,14.17-28.23,0-56.07-5.76-72.81-10-3.79-1-5.79-2.53-6-4.13l0-.51c0.13-1.69,2.15-3.36,6.1-4.37"
       fill="#25b774">
-
+      <animate attributeName="d" dur="1.8s" begin="start.begin" end="mountains.end" repeatCount="indefinite"
+        values="
+      m 132.18,186.12 c 16.74,-4.27 44.32839,-13.52252 72.55839,-13.52252 44.53,0 73.51161,9.95252 73.86161,17.90252 v 0.51 c -0.85,7.86 -29.45,11.02489 -73.6,11.02489 -28.23,0 -56.07,-2.61489 -72.81,-6.85489 -3.79,-1 -5.79,-2.53 -6,-4.13 v -0.51 c 0.13,-1.69 2.15,-3.36 6.1,-4.37;
+      m 132.18,186.12 c 16.74,-4.27 44.58,-6.9807 72.81,-6.9807 44.53,0 73.26,3.4107 73.61,11.3607 v 0.51 c -0.85,7.86 -29.70161,17.94413 -73.85161,17.94413 -28.23,0 -55.81839,-9.53413 -72.55839,-13.77413 -3.79,-1 -5.79,-2.53 -6,-4.13 v -0.51 c 0.13,-1.69 2.15,-3.36 6.1,-4.37;
+      m 132.18,186.12 c 16.74,-4.27 44.32839,-13.52252 72.55839,-13.52252 44.53,0 73.51161,9.95252 73.86161,17.90252 v 0.51 c -0.85,7.86 -29.45,11.02489 -73.6,11.02489 -28.23,0 -56.07,-2.61489 -72.81,-6.85489 -3.79,-1 -5.79,-2.53 -6,-4.13 v -0.51 c 0.13,-1.69 2.15,-3.36 6.1,-4.37;" />
     </path>
   </g>
 
   <!-- Хвост спереиди -->
-  <g class="airship" id="tail-front" transform-origin="123 190.98">
+  <g id="tail-front" transform-origin="123 190.98">
     <animateTransform attributeName="transform" type="translate" values="0 -3; 0 3; 0 -3" keyTimes="0; 0.5; 1"
       keySplines="
         0.3 0 0.3 1;
-        0.3 0 0.3 1" dur="1.8s" end="mountains.end" repeatCount="indefinite" />
+        0.3 0 0.3 1" dur="1.8s" begin="start.begin" end="mountains.end" repeatCount="indefinite" />
     <animateTransform attributeName="transform" type="scale" values="1 0.9; 1 1; 1 0.9; 1 1; 1 0.9"
       keyTimes="0; 0.25; 0.5; 0.75; 1" keySplines="
         0.3 0 0.3 1;
         0.3 0 0.3 1;
         0.3 0 0.3 1;
-        0.3 0 0.3 1" dur="1.8s" end="mountains.end" repeatCount="indefinite" additive="sum" />
-
+        0.3 0 0.3 1" dur="1.8s" begin="start.begin" end="mountains.end" repeatCount="indefinite" additive="sum" />
+    <animate attributeName="opacity" begin="mountains.begin" to="0" dur="0.3s" repeatCount="1" fill="freeze" />
     <path
       d="M123.23,173.34h9.16a3.29,3.29,0,0,1,3.29,3.3v5.71a3.29,3.29,0,0,1-3.29,3.3H115.57a1.32,1.32,0,0,1-1.32-1.32v-2a9,9,0,0,1,9-9"
       fill="#068e4d" />
@@ -118,11 +113,10 @@
 
   <!-- Облако 1 -->
   <g opacity="0">
-    <animateTransform id="movecloud-1" attributeName="transform" type="translate" from="200 0" to="0 0"
-      calcMode="linear" dur="1s" repeatCount="1" fill="freeze" />
-    <animate attributeName="opacity" begin="move-cloud-1.begin" from="0" to="1" dur="0.3s" repeatCount="1"
-      fill="freeze" />
-    <animate attributeName="opacity" begin="move-cloud-1.end - 0.3s" from="1" to="0" dur="0.3s" repeatCount="1"
+    <animateTransform id="moveCloud1" attributeName="transform" type="translate" from="200 0" to="0 0" calcMode="linear"
+      dur="1s" begin="start.begin" repeatCount="1" fill="freeze" />
+    <animate attributeName="opacity" begin="start.begin" from="0" to="1" dur="0.3s" repeatCount="1" fill="freeze" />
+    <animate attributeName="opacity" begin="moveCloud1.end - 0.3s" from="1" to="0" dur="0.3s" repeatCount="1"
       fill="freeze" />
     <line x1="68.95" y1="107.8" x2="131.86" y2="107.8" fill="none" stroke="#fff" stroke-linecap="round"
       stroke-miterlimit="10" stroke-width="2" />
@@ -132,11 +126,11 @@
 
   <!-- Облако 2 -->
   <g opacity="0">
-    <animateTransform id="movecloud-2" attributeName="transform" type="translate" begin="0.6s" from="0 0" to="-200 0"
-      calcMode="linear" dur="1s" repeatCount="1" fill="freeze" />
-    <animate attributeName="opacity" begin="move-cloud-2.begin" from="0" to="1" dur="0.3s" repeatCount="1"
+    <animateTransform id="moveCloud2" attributeName="transform" type="translate" begin="start.begin + 0.6s" from="0 0"
+      to="-200 0" calcMode="linear" dur="1s" repeatCount="1" fill="freeze" />
+    <animate attributeName="opacity" begin="moveCloud2.begin" from="0" to="1" dur="0.3s" repeatCount="1"
       fill="freeze" />
-    <animate attributeName="opacity" begin="move-cloud-2.end - 0.3s" from="1" to="0" dur="0.3s" repeatCount="1"
+    <animate attributeName="opacity" begin="moveCloud2.end - 0.3s" from="1" to="0" dur="0.3s" repeatCount="1"
       fill="freeze" />
     <line x1="258.96" y1="93.19" x2="298.74" y2="93.19" fill="none" stroke="#fff" stroke-linecap="round"
       stroke-miterlimit="10" stroke-width="2" />
@@ -147,24 +141,25 @@
   </g>
 
   <!-- Дымок из хвоста -->
-  <g class="airship">
+  <g>
+    <animate attributeName="opacity" begin="mountains.begin" to="0" dur="0.3s" repeatCount="1" fill="freeze" />
     <line transform-origin="106.25 179.49" x1="106.25" y1="179.49" x2="84.05" y2="179.49" fill="none" stroke="#fff"
       stroke-linecap="round" stroke-miterlimit="10" stroke-width="2">
       <animateTransform attributeName="transform" type="scale" values="1 1; 0.5 1; 1 1" keyTimes="0; 0.5; 1" keySplines="
           0.3 0 0.3 1;
-          0.3 0 0.3 1" dur="0.9s" end="mountains.end" repeatCount="indefinite" />
+          0.3 0 0.3 1" dur="0.9s" begin="start.begin" end="mountains.end" repeatCount="indefinite" />
     </line>
 
     <line transform-origin="106.25 190.98" x1="106.25" y1="190.98" x2="68.77" y2="190.98" fill="none" stroke="#fff"
       stroke-linecap="round" stroke-miterlimit="10" stroke-width="2">
-      <animateTransform attributeName="transform" begin="-0.3s" type="scale" values="1 1; 0.5 1; 1 1"
+      <animateTransform attributeName="transform" begin="start.begin -0.3s" type="scale" values="1 1; 0.5 1; 1 1"
         keyTimes="0; 0.5; 1" keySplines="
           0.3 0 0.3 1;
           0.3 0 0.3 1" dur="0.9s" end="mountains.end" repeatCount="indefinite" />
     </line>
     <line transform-origin="106.25 201.23" x1="106.25" y1="201.23" x2="84.05" y2="201.23" fill="none" stroke="#fff"
       stroke-linecap="round" stroke-miterlimit="10" stroke-width="2">
-      <animateTransform attributeName="transform" begin="-0.6s" type="scale" values="1 1; 0.5 1; 1 1"
+      <animateTransform attributeName="transform" begin="start.begin -0.6s" type="scale" values="1 1; 0.5 1; 1 1"
         keyTimes="0; 0.5; 1" keySplines="
           0.3 0 0.3 1;
           0.3 0 0.3 1" calcMode="spline" dur="0.9s" end="mountains.end" repeatCount="indefinite" />
@@ -176,7 +171,7 @@
     d="M289.94,327.88H244.88L212.8,296.58a1.89,1.89,0,0,0-2.44,0l-10.2,10.23a1.72,1.72,0,0,1-2.25,0l-19-20.17a2.4,2.4,0,0,0-3.1,0l-26.42,25.64a1.71,1.71,0,0,1-2.25,0l-2.63-2.92a1.71,1.71,0,0,0-2.31,0L124.63,329H80.78"
     fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2">
 
-    <animate id="mountains" attributeName="d" dur="0.6s" begin="2s" repeatCount="1"
+    <animate id="mountains" attributeName="d" dur="0.6s" begin="start.begin + 2s" repeatCount="1"
       values="
       M289.94,327.88H244.88L212.8,296.58a1.89,1.89,0,0,0-2.44,0l-10.2,10.23a1.72,1.72,0,0,1-2.25,0l-19-20.17a2.4,2.4,0,0,0-3.1,0l-26.42,25.64a1.71,1.71,0,0,1-2.25,0l-2.63-2.92a1.71,1.71,0,0,0-2.31,0L124.63,329H80.78;
       M289.94,328H244.88L212.8,328a1.89,1.89,0,0,0-0,0l-10.2,0a1.72,1.72,0,0,1-0,0l-19,0a2.4,2.4,0,0,0-0,0l-26.42,0a1.71,1.71,0,0,1-0,0l-2.63,0a1.71,1.71,0,0,0-0,0L124.63,328H80.78" fill="freeze" />
@@ -193,9 +188,10 @@
   <!-- Облака за окном -->
   <g clip-path="url(#window)">
     <g transform="translate(300 160)" opacity="0">
-      <animate attributeName="opacity" begin="2s" from="0" to="1" dur="0.6s" repeatCount="1" fill="freeze" />
+      <animate attributeName="opacity" begin="mountains.begin" from="0" to="1" dur="0.6s" repeatCount="1"
+        fill="freeze" />
 
-      <animateTransform attributeName="transform" type="translate" begin="2s" from="300 160" to="-100 160"
+      <animateTransform attributeName="transform" type="translate" begin="mountains.begin" from="300 160" to="-100 160"
         calcMode="linear" dur="2s" repeatCount="indefinite" />
       <line x1="28.18" y1="38.34" x2="91.09" y2="38.34" fill="none" stroke="#fff" stroke-linecap="round"
         stroke-miterlimit="10" stroke-width="2" />
@@ -212,10 +208,12 @@
 
   <!-- Окно (дубликат окна из дирижабля) -->
   <g class="cabin">
-    <path
+    <path opacity="0"
       d="M204.25,231.88h-2.05a3.45,3.45,0,0,0-3.43,3.45v2.92a3.45,3.45,0,0,0,3.43,3.45h2.05a3.45,3.45,0,0,0,3.43-3.45v-2.92A3.44,3.44,0,0,0,204.25,231.88Z"
       fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-      <animate attributeName="d" dur="0.6s" begin="1.8s" repeatCount="1"
+      <animate attributeName="opacity" begin="mountains.begin" from="0" to="1" dur="0.6s" repeatCount="1"
+        fill="freeze" />
+      <animate attributeName="d" dur="0.6s" begin="mountains.begin" repeatCount="1"
         values="
       M204.25,231.88h-2.05a3.45,3.45,0,0,0-3.43,3.45v2.92a3.45,3.45,0,0,0,3.43,3.45h2.05a3.45,3.45,0,0,0,3.43-3.45v-2.92A3.44,3.44,0,0,0,204.25,231.88Z;
       M275,225.43H257.87a17.6,17.6,0,0,1-17.52-17.58V170a17.6,17.6,0,0,1,17.52-17.58H275A17.6,17.6,0,0,1,292.51,170v37.83A17.61,17.61,0,0,1,275,225.43Z" fill="freeze" />
@@ -224,10 +222,10 @@
 
   <!-- Лыжи -->
   <g transform="translate(-50, 0)" transform-origin="150 327.88" opacity="0">
-    <animateTransform id="moveSkie" begin="mountains.end + 0.3s" attributeName="transform" type="translate"
-      to="0 0" keyTimes="0; 1" keySplines="0 0 0.3 1" calcMode="spline" dur="0.6s" repeatCount="1" fill="freeze" />
-    <animateTransform attributeName="transform" type="skewX" begin="moveSkie.end" values="0; -2; 0" keySplines="0.4 0 0.7 1; 0.4 0 0.7 1" calcMode="spline"
-      dur="1.5s" repeatCount="indefinite" />
+    <animateTransform id="moveSkie" begin="mountains.end + 0.3s" attributeName="transform" type="translate" to="0 0"
+      keyTimes="0; 1" keySplines="0 0 0.3 1" calcMode="spline" dur="0.6s" repeatCount="1" fill="freeze" />
+    <animateTransform attributeName="transform" type="skewX" begin="moveSkie.end" values="0; -2; 0"
+      keySplines="0.4 0 0.7 1; 0.4 0 0.7 1" calcMode="spline" dur="1.5s" repeatCount="indefinite" />
     <animate attributeName="opacity" begin="moveSkie.begin" from="0" to="1" dur="0.6s" repeatCount="1" fill="freeze" />
     <path
       d="M91.14,327.79a2.2,2.2,0,0,1-2-2.36l13.66-193.17c1.1-15.49-4.8-21.92-8.75-24.47a1.35,1.35,0,0,1,.53-2.45C103,104,122.18,104,120,134.19L106.43,326.67a2.2,2.2,0,0,1-2.35,2Z"
@@ -239,8 +237,8 @@
 
   <!-- Кресло -->
   <g transform="translate(-50, 0)" opacity="0">
-    <animateTransform id="moveChair" begin="mountains.end" attributeName="transform" type="translate"
-      to="0 0" keyTimes="0; 1" keySplines="0 0 0.3 1" calcMode="spline" dur="0.6s" repeatCount="1" fill="freeze" />
+    <animateTransform id="moveChair" begin="mountains.end" attributeName="transform" type="translate" to="0 0"
+      keyTimes="0; 1" keySplines="0 0 0.3 1" calcMode="spline" dur="0.6s" repeatCount="1" fill="freeze" />
     <animate attributeName="opacity" begin="moveChair.begin" from="0" to="1" dur="0.6s" repeatCount="1" fill="freeze" />
 
     <path d="M257.5,259.82H196.76V245.63h55.09a9.92,9.92,0,0,1,9.9,9.93,4.26,4.26,0,0,1-4.25,4.25" fill="#a67ee5" />
@@ -273,11 +271,11 @@
 
   <!-- Лист -->
   <g transform="translate(-50, 0)" transform-origin="150 327.88" opacity="0">
-    <animateTransform id="movePalm" begin="mountains.end + 0.6s" attributeName="transform" type="translate"
-      to="0 0" keyTimes="0; 1" keySplines="0 0 0.3 1" calcMode="spline" dur="0.6s" repeatCount="1" fill="freeze" />
+    <animateTransform id="movePalm" begin="mountains.end + 0.6s" attributeName="transform" type="translate" to="0 0"
+      keyTimes="0; 1" keySplines="0 0 0.3 1" calcMode="spline" dur="0.6s" repeatCount="1" fill="freeze" />
 
-    <animateTransform attributeName="transform" type="rotate" begin="movePalm.end" values="0; -5; 0" keySplines="0.4 0 0.7 1; 0.4 0 0.7 1" calcMode="spline"
-      dur="1.5s" repeatCount="indefinite" />
+    <animateTransform attributeName="transform" type="rotate" begin="movePalm.end" values="0; -5; 0"
+      keySplines="0.4 0 0.7 1; 0.4 0 0.7 1" calcMode="spline" dur="1.5s" repeatCount="indefinite" />
     <animate attributeName="opacity" begin="movePalm.begin" from="0" to="1" dur="0.6s" repeatCount="1" fill="freeze" />
     <path
       d="M79.18,194A131,131,0,0,1,94.77,220.9a255,255,0,0,1-20.08-23.55,259,259,0,0,1-17.07-25.88A131.72,131.72,0,0,1,79.18,194"
