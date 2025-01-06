@@ -51,10 +51,12 @@ export default class FullPageScroll {
     this.changeActiveMenuItem();
     this.changeTheme();
     this.emitChangeDisplayEvent();
-    // without this timeout the animation works wrong in firefox
-    setTimeout(() => {
-      this.runSvgAnimation();
-    }, 1);
+    // without delay the animation works wrong in firefox
+    if (this.screenElements[this.activeScreen].id === `prizes` && !this.prizesSeen) {
+      this.runSvgAnimation(document.querySelector(`#prize1svg`), 1);
+      this.runSvgAnimation(document.querySelector(`#prize2svg`), 4000);
+      this.runSvgAnimation(document.querySelector(`#prize3svg`), 7000);
+    }
   }
 
   changeVisibilityDisplay() {
@@ -92,36 +94,34 @@ export default class FullPageScroll {
       : (Math.floor(activeIndex / 2) + 1).toString();
   }
 
-  runSvgAnimation() {
-    if (this.screenElements[this.activeScreen].id === `prizes` && !this.prizesSeen) {
-      const svgObject = document.querySelector(`#prize1svg`);
-
-      const runAnimaion = (svgContent) => {
-        const startAnimation = svgContent.getElementById(`start`);
-        if (startAnimation) {
+  runSvgAnimation(svgObject, delay) {
+    const runAnimaion = (svgContent) => {
+      const startAnimation = svgContent.getElementById(`start`);
+      if (startAnimation) {
+        setTimeout(() => {
           startAnimation.beginElement();
-          this.prizesSeen = true;
-        } else {
-          setListener();
-        }
-      };
-
-      const setListener = () => {
-        svgObject.addEventListener(`load`, function () {
-          const svgContent = svgObject.contentDocument;
-          if (svgContent) {
-            runAnimaion(svgContent);
-          }
-        });
-      };
-
-      const svgContent = svgObject.contentDocument;
-
-      if (!svgContent) {
-        setListener();
+        }, delay);
+        this.prizesSeen = true;
       } else {
-        runAnimaion(svgContent);
+        setListener();
       }
+    };
+
+    const setListener = () => {
+      svgObject.addEventListener(`load`, function () {
+        const svgContent = svgObject.contentDocument;
+        if (svgContent) {
+          runAnimaion(svgContent);
+        }
+      });
+    };
+
+    const svgContent = svgObject.contentDocument;
+
+    if (!svgContent) {
+      setListener();
+    } else {
+      runAnimaion(svgContent);
     }
   }
 
