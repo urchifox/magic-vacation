@@ -1,5 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="30 60 290 290">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="30 70 300 260">
   <animate id="start" begin="indefinite" dur="0.1s" repeatCount="1" />
+  <!-- <animate id="start" dur="0.1s" repeatCount="1" /> -->
 
   <!-- Кабина -->
   <g transform-origin="200 220">
