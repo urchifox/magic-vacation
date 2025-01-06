@@ -1,3 +1,5 @@
+import runSvgAnimation from './runSvgAnimation';
+
 export default () => {
   let showResultEls = document.querySelectorAll(`.js-show-result`);
   let results = document.querySelectorAll(`.screen--result`);
@@ -15,6 +17,7 @@ export default () => {
         targetEl[0].classList.remove(`screen--hidden`);
         setTimeout(() => {
           targetEl[0].classList.add(`screen--show`);
+          runSvgAnimation(targetEl[0].querySelector(`.result__title object`), 1);
         }, 100);
       });
     }
