@@ -244,6 +244,8 @@
 .result__title {
   margin: 0 auto 2rem;
   color: $c-light;
+  transform: scale(1.2);
+  transition: transform 0.9s ease;
 
   @media (min-width: $stop-scaling) {
     margin: 0 auto 20px;
@@ -251,6 +253,10 @@
 
   @media (orientation: portrait) {
     margin-bottom: 1.5rem;
+  }
+
+  .screen--show & {
+    transform: scale(1);
   }
 
   svg {

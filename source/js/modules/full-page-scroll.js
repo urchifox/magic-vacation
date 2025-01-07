@@ -1,4 +1,5 @@
 import throttle from 'lodash/throttle';
+import runSvgAnimation from './runSvgAnimation';
 
 export default class FullPageScroll {
   constructor() {
@@ -53,9 +54,10 @@ export default class FullPageScroll {
     this.emitChangeDisplayEvent();
     // without delay the animation works wrong in firefox
     if (this.screenElements[this.activeScreen].id === `prizes` && !this.prizesSeen) {
-      this.runSvgAnimation(document.querySelector(`#prize1svg`), 1);
-      this.runSvgAnimation(document.querySelector(`#prize2svg`), 4000);
-      this.runSvgAnimation(document.querySelector(`#prize3svg`), 7000);
+      this.prizesSeen = true;
+      runSvgAnimation(document.querySelector(`#prize1svg`), 1);
+      runSvgAnimation(document.querySelector(`#prize2svg`), 4000);
+      runSvgAnimation(document.querySelector(`#prize3svg`), 7000);
     }
   }
 
