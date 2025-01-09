@@ -1,46 +1,42 @@
 export default (wholeTime, timerElement) => {
-  const startTimeStamp = Date.now();
-  const INTERVAL = 1000;
-  let now = startTimeStamp;
-  let then = startTimeStamp;
-  let elapsed = 0;
+  if (typeof wholeTime !== `number` || wholeTime <= 0) {
+    throw new Error(`Invalid \`wholeTime\`: must be a positive number.`);
+  }
 
-  function draw() {
-    const secondsLast = Math.max(0, Math.ceil((wholeTime - (Date.now() - startTimeStamp)) / 1000));
-    const hours = Math.floor(secondsLast / 3600);
-    const minutes = Math.floor((secondsLast % 3600) / 60);
-    const seconds = secondsLast % 60;
+  const UPDATE_INTERVAL = 1000;
+  const startTimestamp = performance.now();
+  let lastUpdateTimestamp = startTimestamp;
 
-    function formateToString(number) {
-      return number.toString().padStart(2, `0`);
-    }
+  function formatToString(number) {
+    return number.toString().padStart(2, `0`);
+  }
 
-    const timerText = `${hours > 0 ? formateToString(hours) + `:` : ``}${formateToString(minutes)}:${formateToString(seconds)}`;
+  function draw(secondsLeft) {
+    const hours = Math.floor(secondsLeft / 3600);
+    const minutes = Math.floor((secondsLeft % 3600) / 60);
+    const seconds = secondsLeft % 60;
+
+    const timerText = `${hours > 0 ? formatToString(hours) + `:` : ``}${formatToString(minutes)}:${formatToString(seconds)}`;
     timerElement.innerHTML = timerText;
   }
 
-  function tick() {
-    if (now - startTimeStamp > wholeTime) {
+  function tick(currentTimestamp) {
+    const elapsedTime = currentTimestamp - startTimestamp;
+
+    if (elapsedTime >= wholeTime) {
+      draw(0);
       return;
     }
 
-    // отправляем на отрисовку следующий кадр
-    requestAnimationFrame(tick);
-
-    // проверяем, сколько времени прошло с предыдущего запуска
-    now = Date.now();
-    elapsed = now - then;
-
-    // проверяем, достаточно ли прошло времени с предыдущей отрисовки кадра
-    if (elapsed > INTERVAL) {
-      // сохранение времени текущей отрисовки кадра
-      then = now - (elapsed % INTERVAL);
-
-      // запуск функции отрисовки
-      draw();
+    if (currentTimestamp - lastUpdateTimestamp >= UPDATE_INTERVAL) {
+      lastUpdateTimestamp = currentTimestamp;
+      const secondsLeft = Math.max(0, Math.ceil((wholeTime - elapsedTime) / 1000));
+      draw(secondsLeft);
     }
+
+    requestAnimationFrame(tick);
   }
 
-  draw();
-  tick();
+  draw(Math.max(0, Math.ceil(wholeTime / 1000)));
+  requestAnimationFrame(tick);
 };
