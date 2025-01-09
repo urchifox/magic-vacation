@@ -1,5 +1,6 @@
 import throttle from 'lodash/throttle';
 import runSvgAnimation from './runSvgAnimation';
+import gameTimer from './game-timer';
 
 export default class FullPageScroll {
   constructor() {
@@ -58,6 +59,10 @@ export default class FullPageScroll {
       runSvgAnimation(document.querySelector(`#prize1svg`), 1);
       runSvgAnimation(document.querySelector(`#prize2svg`), 4000);
       runSvgAnimation(document.querySelector(`#prize3svg`), 7000);
+    }
+
+    if (this.screenElements[this.activeScreen].id === `game`) {
+      gameTimer(5 * 60 * 1000, document.querySelector(`.game__counter`));
     }
   }
 
