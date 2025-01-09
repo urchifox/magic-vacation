@@ -62,6 +62,7 @@ export default class FullPageScroll {
     }
 
     if (this.screenElements[this.activeScreen].id === `game`) {
+      // gameTimer(10 * 1000, document.querySelector(`.game__counter`));
       gameTimer(5 * 60 * 1000, document.querySelector(`.game__counter`));
     }
   }
