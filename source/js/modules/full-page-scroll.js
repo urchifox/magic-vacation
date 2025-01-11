@@ -1,6 +1,6 @@
 import throttle from 'lodash/throttle';
-import runSvgAnimation from './runSvgAnimation';
 import gameTimer from './game-timer';
+import showPrize from './showPrize';
 
 export default class FullPageScroll {
   constructor() {
@@ -56,9 +56,27 @@ export default class FullPageScroll {
     // without delay the animation works wrong in firefox
     if (this.screenElements[this.activeScreen].id === `prizes` && !this.prizesSeen) {
       this.prizesSeen = true;
-      runSvgAnimation(document.querySelector(`#prize1svg`), 1);
-      runSvgAnimation(document.querySelector(`#prize2svg`), 4000);
-      runSvgAnimation(document.querySelector(`#prize3svg`), 7000);
+
+      showPrize({
+        numberElement: document.querySelector(`.prizes__item--journeys .prizes__desc b`),
+        svgElement: document.querySelector(`#prize1svg`),
+        delayForNumber: 1,
+        delayForSvg: 1,
+      });
+
+      showPrize({
+        numberElement: document.querySelector(`.prizes__item--cases .prizes__desc b`),
+        svgElement: document.querySelector(`#prize2svg`),
+        delayForNumber: 4000,
+        delayForSvg: 4000,
+      });
+
+      showPrize({
+        numberElement: document.querySelector(`.prizes__item--codes .prizes__desc b`),
+        svgElement: document.querySelector(`#prize3svg`),
+        delayForNumber: 7000,
+        delayForSvg: 7000,
+      });
     }
 
     if (this.screenElements[this.activeScreen].id === `game`) {
@@ -131,7 +149,6 @@ export default class FullPageScroll {
       runAnimaion(svgContent);
     }
   }
-
 
   emitChangeDisplayEvent() {
     const event = new CustomEvent(`screenChanged`, {
