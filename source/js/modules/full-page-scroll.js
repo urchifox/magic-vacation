@@ -60,22 +60,22 @@ export default class FullPageScroll {
       showPrize({
         numberElement: document.querySelector(`.prizes__item--journeys .prizes__desc b`),
         svgElement: document.querySelector(`#prize1svg`),
-        delayForNumber: 1,
+        delayForNumber: 2000,
         delayForSvg: 1,
       });
 
       showPrize({
         numberElement: document.querySelector(`.prizes__item--cases .prizes__desc b`),
         svgElement: document.querySelector(`#prize2svg`),
-        delayForNumber: 4000,
+        delayForNumber: 7000,
         delayForSvg: 4000,
       });
 
       showPrize({
         numberElement: document.querySelector(`.prizes__item--codes .prizes__desc b`),
         svgElement: document.querySelector(`#prize3svg`),
-        delayForNumber: 7000,
-        delayForSvg: 7000,
+        delayForNumber: 10000,
+        delayForSvg: 8000,
       });
     }
 

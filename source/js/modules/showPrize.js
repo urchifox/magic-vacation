@@ -10,6 +10,8 @@ export default ({
   const finalNumber = parseInt(numberElement.textContent, 10);
 
   if (typeof finalNumber === `number`) {
+    const initialWidth = numberElement.clientWidth;
+    numberElement.style.setProperty(`width`, `${initialWidth}px`);
     numberElement.textContent = 0;
 
     const startNumber = Math.pow(10, Math.floor(Math.log10(finalNumber)));
@@ -21,7 +23,10 @@ export default ({
           numberElement,
           array,
           12
-      );
+      ).then(() => {
+        console.log('all');
+        numberElement.style.setProperty(`width`, ``);
+      });
     }, delayForNumber);
   }
 

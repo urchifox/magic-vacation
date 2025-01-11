@@ -58,6 +58,11 @@
   text-transform: uppercase;
   font-size: 2.4rem;
   line-height: 1.2;
+  opacity: 0;
+  transform: translateY(0.5rem);
+  transition:
+    transform 0.6s ease 0s,
+    opacity 0.3s ease 0s;
 
   @media (min-width: $stop-scaling) {
     margin-left: 58px;
@@ -81,6 +86,14 @@
   @media (max-width: $mobile) and (orientation: landscape) {
     max-width: 20rem;
     font-size: 1.4rem;
+  }
+
+  .screen.active & {
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      transform 0.6s ease 0.3s,
+      opacity 0.3s ease 0.3s;
   }
 
   p {
@@ -127,6 +140,9 @@
   }
 
   &--journeys {
+    --icon-appear-delay: 0s;
+    --desc-appear-delay: 2s;
+
     .prizes__icon {
       position: relative;
       left: -3.9rem;
@@ -160,6 +176,8 @@
   }
 
   &--cases {
+    --icon-appear-delay: 4s;
+    --desc-appear-delay: 7s;
     margin-left: 7rem;
 
     @media (min-width: $stop-scaling) {
@@ -204,6 +222,9 @@
   }
 
   &--codes {
+    --icon-appear-delay: 8s;
+    --desc-appear-delay: 10s;
+
     @media (max-width: $tablet) and (orientation: portrait) {
       padding-left: 0.8rem;
     }
@@ -237,8 +258,22 @@
 }
 
 .prizes__icon {
+  opacity: 0;
+  transform: translateX(2rem);
+  transition:
+    transform 0.6s ease 0s,
+    opacity 0.3s ease 0s;
+
   @media (max-width: $tablet) and (orientation: portrait) {
     margin-right: 3.8rem;
+  }
+
+  .screen.active & {
+    opacity: 1;
+    transform: translateX(0);
+    transition:
+      transform 0.6s ease var(--icon-appear-delay),
+      opacity 0.3s ease var(--icon-appear-delay);
   }
 
   img {
@@ -254,6 +289,8 @@
   margin: 5.6rem 0 0 0;
   font-size: 1.8rem;
   line-height: 1.1;
+  opacity: 0;
+  transition: opacity 0.3s ease 0s;
 
   @media (min-width: $stop-scaling) {
     margin-top: 56px;
@@ -277,6 +314,11 @@
 
   @media (max-width: $mobile) and (orientation: landscape) {
     font-size: 0.8rem;
+  }
+
+  .screen.active & {
+    opacity: 1;
+    transition: opacity 0.3s ease var(--desc-appear-delay);
   }
 
   b {

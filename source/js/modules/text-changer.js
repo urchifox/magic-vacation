@@ -8,21 +8,24 @@ export default (element, textArray, fps) => {
     element.textContent = textArray[index];
   }
 
-  function tick(currentTimestamp) {
-    if (currentIndex >= textArray.length - 1) {
-      updateTextContent(textArray.length - 1);
-      return;
+  return new Promise((resolve) => {
+    function tick(currentTimestamp) {
+      if (currentIndex >= textArray.length - 1) {
+        updateTextContent(textArray.length - 1);
+        resolve();
+        return;
+      }
+
+      if (currentTimestamp - lastUpdateTimestamp >= UPDATE_INTERVAL) {
+        lastUpdateTimestamp = currentTimestamp;
+        currentIndex++;
+        updateTextContent(currentIndex);
+      }
+
+      requestAnimationFrame(tick);
     }
 
-    if (currentTimestamp - lastUpdateTimestamp >= UPDATE_INTERVAL) {
-      lastUpdateTimestamp = currentTimestamp;
-      currentIndex++;
-      updateTextContent(currentIndex);
-    }
-
+    updateTextContent(currentIndex);
     requestAnimationFrame(tick);
-  }
-
-  updateTextContent(currentIndex);
-  requestAnimationFrame(tick);
+  });
 };
