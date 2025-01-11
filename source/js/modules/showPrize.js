@@ -24,7 +24,6 @@ export default ({
           array,
           12
       ).then(() => {
-        console.log('all');
         numberElement.style.setProperty(`width`, ``);
       });
     }, delayForNumber);
