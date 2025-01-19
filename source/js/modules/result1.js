@@ -6,15 +6,11 @@ let frame = {};
 
 function setFrame() {
   const frameSize = Math.min(window.innerWidth, window.innerHeight);
-  const frameX = (window.innerWidth - frameSize) / 2;
-  const frameY = (window.innerHeight - frameSize) / 2;
   frame = {
     width: frameSize,
     height: frameSize,
-    top: frameX / window.innerHeight,
-    left: frameY / window.innerWidth,
-    x: frameX,
-    y: frameY,
+    x: (window.innerWidth - frameSize) / 2,
+    y: (window.innerHeight - frameSize) / 2,
   };
 }
 
@@ -107,8 +103,8 @@ const OBJECTS = {
 function draw(obj) {
   let width = frame.width * (obj.width / 100);
   let height = frame.width * (obj.width / 100) * obj.ratio;
-  let y = frame.height * (obj.top / 100) + frame.y;
-  let x = frame.width * (obj.left / 100) + frame.x;
+  let y = frame.height * (obj.top / 100);
+  let x = frame.width * (obj.left / 100);
   ctx.save();
 
   if (obj.transforms.scaleX) {
@@ -145,12 +141,13 @@ function updateSize() {
   setFrame();
   canvasElement.width = window.innerWidth;
   canvasElement.height = window.innerHeight;
-  ctx.strokeRect(frame.x, frame.y, frame.width, frame.height);
 }
 
 export default async () => {
   // window.addEventListener(`resize`, updateSize);
   updateSize();
+  ctx.translate(frame.x, frame.y);
+  ctx.strokeRect(0, 0, frame.width, frame.height);
   await loadImages(OBJECTS);
   Object.values(OBJECTS).forEach((obj) => {
     draw(obj);
