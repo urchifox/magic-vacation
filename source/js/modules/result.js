@@ -1,3 +1,4 @@
+import result1 from './result1';
 import runSvgAnimation from './runSvgAnimation';
 
 export default () => {
@@ -18,6 +19,9 @@ export default () => {
         setTimeout(() => {
           targetEl[0].classList.add(`screen--show`);
           runSvgAnimation(targetEl[0].querySelector(`.result__title object`), 1);
+          if (i === 0) {
+            result1();
+          }
         }, 100);
       });
     }
