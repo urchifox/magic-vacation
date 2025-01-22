@@ -5,6 +5,9 @@ export default class CanvasManager {
     this.canvasSizeGetter = opt.canvasSizeGetter;
     this.updateSize();
     this.frame = opt.frame;
+    this.startTime = performance.now();
+    // Привязка метода animate
+    this.animate = this.animate.bind(this);
   }
 
   set frame(frameSize) {
@@ -53,6 +56,7 @@ export default class CanvasManager {
     });
 
     await Promise.all(promises);
+    this.objects = data;
   }
 
   draw(obj) {
@@ -61,6 +65,14 @@ export default class CanvasManager {
     let y = this.frame.height * (obj.top / 100);
     let x = this.frame.width * (obj.left / 100);
     this.ctx.save();
+
+    if (obj.transforms.translateX) {
+      x += this.size * (obj.transforms.translateX / 100);
+    }
+
+    if (obj.transforms.translateY) {
+      y += this.size * (obj.transforms.translateY / 100);
+    }
 
     if (obj.transforms.scaleX) {
       width *= obj.transforms.scaleX;
@@ -88,7 +100,35 @@ export default class CanvasManager {
       this.ctx.translate(0 - x - width / 2, 0 - y - height / 2);
     }
 
+    if (obj.opacity) {
+      this.ctx.globalAlpha = obj.opacity;
+    }
+
     this.ctx.drawImage(obj.img, x, y, width, height);
     this.ctx.restore();
+  }
+
+  animate(currentTime) {
+    const deltaTime = currentTime - this.startTime;
+
+    // Обновляем состояние всех объектов
+    Object.values(this.objects).forEach((obj) => {
+      if (!obj.animations) {
+        return;
+      }
+      obj.animations.forEach((anim) => {
+        const elapsed = deltaTime - anim.start;
+        if (elapsed >= 0 && elapsed <= anim.duration) {
+          const progress = anim.easing(elapsed / anim.duration);
+          obj[anim.property] = anim.from + (anim.to - anim.from) * progress;
+        }
+      });
+    });
+
+    // Очищаем холст и перерисовываем объекты
+    this.ctx.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
+    Object.values(this.objects).forEach((obj) => this.draw(obj));
+
+    requestAnimationFrame(this.animate);
   }
 }

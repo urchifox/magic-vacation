@@ -12,14 +12,14 @@ export default async () => {
         width: window.innerWidth,
         height: window.innerHeight,
       };
-    }
+    },
   });
 
   const OBJECTS = {
     back: {
       src: `back.png`,
       width: 76.71,
-      height: 42.10,
+      height: 42.1,
       top: 36.71,
       left: 12.26,
       right: 0,
@@ -75,6 +75,33 @@ export default async () => {
       right: 0,
       bottom: 0,
       transforms: {},
+      animations: [
+        {
+          start: 0,
+          duration: 1000,
+          easing: (t) => t,
+          property: `opacity`,
+          from: 0,
+          to: 1,
+        },
+        // {
+        //   start: 0,
+        //   duration: 1000,
+        //   easing: easing.easeOut,
+        //   property: `x`,
+        //   from: -200,
+        //   to: 300,
+        // },
+        // {
+        //   start: 1000,
+        //   duration: 2000,
+        //   easing: easing.linear,
+        //   property: `rotation`,
+        //   from: -5,
+        //   to: 5,
+        //   loop: true,
+        // },
+      ],
     },
     snowflake1: {
       src: `snowflake.png`,
@@ -99,8 +126,8 @@ export default async () => {
   };
 
   await canvasManager.loadImages(OBJECTS);
-  Object.values(OBJECTS).forEach((obj) => {
-    canvasManager.draw(obj);
-  });
+  requestAnimationFrame(canvasManager.animate);
+  // Object.values(OBJECTS).forEach((obj) => {
+  //   canvasManager.draw(obj);
+  // });
 };
-
