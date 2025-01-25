@@ -66,41 +66,41 @@ export default class CanvasManager {
     let x = this.frame.width * (obj.left / 100);
     this.ctx.save();
 
-    if (obj.transforms.translateX) {
-      x += this.size * (obj.transforms.translateX / 100);
+    if (obj.translateX !== undefined) {
+      x += this.frameW * (obj.translateX / 100);
     }
 
-    if (obj.transforms.translateY) {
-      y += this.size * (obj.transforms.translateY / 100);
+    if (obj.translateY !== undefined) {
+      y += this.frameH * (obj.translateY / 100);
     }
 
-    if (obj.transforms.scaleX) {
-      width *= obj.transforms.scaleX;
+    if (obj.scaleX !== undefined) {
+      width *= obj.scaleX;
 
-      if (obj.transforms.scaleX < 0) {
+      if (obj.scaleX < 0) {
         this.ctx.scale(-1, 1);
 
         x = -x;
       }
     }
 
-    if (obj.transforms.scaleY) {
-      height *= obj.transforms.scaleY;
+    if (obj.scaleY !== undefined) {
+      height *= obj.scaleY;
 
-      if (obj.transforms.scaleY < 0) {
+      if (obj.scaleY < 0) {
         this.ctx.scale(1, -1);
 
         y = -y;
       }
     }
 
-    if (obj.transforms.rotate) {
+    if (obj.rotate !== undefined) {
       this.ctx.translate(x + width / 2, y + height / 2);
-      this.ctx.rotate((obj.transforms.rotate * Math.PI) / 180);
+      this.ctx.rotate((obj.rotate * Math.PI) / 180);
       this.ctx.translate(0 - x - width / 2, 0 - y - height / 2);
     }
 
-    if (obj.opacity) {
+    if (obj.opacity !== undefined) {
       this.ctx.globalAlpha = obj.opacity;
     }
 
@@ -118,6 +118,17 @@ export default class CanvasManager {
       }
       obj.animations.forEach((anim) => {
         const elapsed = deltaTime - anim.start;
+        if (elapsed > anim.duration && anim.loop) {
+          anim.start += anim.duration;
+
+          if (anim.isLoopReversed) {
+            const startState = anim.from;
+            const finalState = anim.to;
+
+            anim.from = finalState;
+            anim.to = startState;
+          }
+        }
         if (elapsed >= 0 && elapsed <= anim.duration) {
           const progress = anim.easing(elapsed / anim.duration);
           obj[anim.property] = anim.from + (anim.to - anim.from) * progress;
