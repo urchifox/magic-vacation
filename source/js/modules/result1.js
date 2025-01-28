@@ -2,7 +2,81 @@ import CanvasManager from "./canvas-manager";
 import easing from "./easing";
 
 export default async () => {
-  const canvasManager = new CanvasManager({
+  class ResultCanvas extends CanvasManager {
+    drawBlob() {
+      const {topX, topY, tailX, tailY, deltasLength} = BLOB;
+      const radius = this.frame.width * (BLOB.radius / 100);
+      const centerX = this.frame.width * (topX / 100);
+      const centerY = this.frame.height * ((topY + BLOB.radius) / 100);
+      this.ctx.beginPath();
+
+      const angle = ((BLOB.angle + 47) * Math.PI) / 180;
+
+      // Рисуем окружность капли
+      this.ctx.arc(centerX, centerY, radius, Math.PI / 2, Math.PI * 3 / 2);
+
+      // Рисуем левую часть хвоста
+      this.ctx.bezierCurveTo(
+          centerX + radius,
+          centerY - radius,
+          (tailX - deltasLength * Math.sin(angle)),
+          (tailY + deltasLength * Math.cos(angle)),
+          tailX,
+          tailY
+      );
+
+      // Рисуем правую часть хвоста
+      this.ctx.bezierCurveTo(
+          (tailX - BLOB.deltasLength * Math.sin(angle)),
+          (tailY + BLOB.deltasLength * Math.cos(angle)),
+          centerX + radius,
+          centerY + radius,
+          centerX,
+          centerY + radius,
+      );
+
+
+      this.ctx.closePath();
+
+      this.ctx.fillStyle = `#ACC3FF`; // Цвет заливки
+      this.ctx.fill(); // Заливаем каплю цветом
+    }
+
+    customAnimation(deltaTime) {
+      const airplane = this.objects.airplane;
+      const angle = (airplane.rotate * Math.PI) / 180;
+
+      let width = this.frame.width * (airplane.width / 100);
+      let height = this.frame.width * (airplane.width / 100) * airplane.ratio;
+      let y = this.frame.height * (airplane.top / 100);
+      let x = this.frame.width * (airplane.left / 100);
+
+      if (airplane.translateX !== undefined) {
+        x += this.frameW * (airplane.translateX / 100);
+      }
+
+      if (airplane.translateY !== undefined) {
+        y += this.frameH * (airplane.translateY / 100);
+      }
+
+      const centerX = x + width / 2;
+      const centerY = y + height / 2;
+
+      const dx = this.frameW * (-4.9 / 100);
+      const dy = this.frameW * (4.7 / 100);
+
+      const rotatedX = dx * Math.cos(angle) - dy * Math.sin(angle);
+      const rotatedY = dx * Math.sin(angle) + dy * Math.cos(angle);
+
+      BLOB.tailX = centerX + rotatedX;
+      BLOB.tailY = centerY + rotatedY;
+      BLOB.angle = airplane.rotate;
+
+      this.runAnimations(BLOB, deltaTime);
+      this.drawBlob();
+    }
+  }
+  const canvasManager = new ResultCanvas({
     canvas: document.getElementById(`result1-canvas`),
     frame: {
       width: Math.min(window.innerWidth, window.innerHeight),
@@ -15,6 +89,34 @@ export default async () => {
       };
     },
   });
+
+  const BLOB = {
+    topX: 33,
+    topY: 36.7,
+    tailX: 0,
+    tailY: 0,
+    angle: 0,
+    radius: 21,
+    deltasLength: 0,
+    animations: [
+      {
+        start: 0,
+        duration: 3000,
+        easing: easing.linear,
+        property: `radius`,
+        from: 0,
+        to: 21,
+      },
+      {
+        start: 0,
+        duration: 3000,
+        easing: easing.linear,
+        property: `deltasLength`,
+        from: 0,
+        to: 100,
+      },
+    ]
+  };
 
   const OBJECTS = {
     // back: {
@@ -30,7 +132,7 @@ export default async () => {
       height: 17.21,
       top: 37.73,
       left: 85.41,
-      rotate: 6,
+      rotate: 0,
       animations: [
         {
           start: 0,

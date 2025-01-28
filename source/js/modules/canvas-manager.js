@@ -108,6 +108,27 @@ export default class CanvasManager {
     this.ctx.restore();
   }
 
+  runAnimations(obj, deltaTime) {
+    obj.animations.forEach((anim) => {
+      const elapsed = deltaTime - anim.start;
+      if (elapsed > anim.duration && anim.loop) {
+        anim.start += anim.duration;
+
+        if (anim.isLoopReversed) {
+          const startState = anim.from;
+          const finalState = anim.to;
+
+          anim.from = finalState;
+          anim.to = startState;
+        }
+      }
+      if (elapsed >= 0 && elapsed <= anim.duration) {
+        const progress = anim.easing(elapsed / anim.duration);
+        obj[anim.property] = anim.from + (anim.to - anim.from) * progress;
+      }
+    });
+  }
+
   animate(currentTime) {
     const deltaTime = currentTime - this.startTime;
 
@@ -116,28 +137,16 @@ export default class CanvasManager {
       if (!obj.animations) {
         return;
       }
-      obj.animations.forEach((anim) => {
-        const elapsed = deltaTime - anim.start;
-        if (elapsed > anim.duration && anim.loop) {
-          anim.start += anim.duration;
-
-          if (anim.isLoopReversed) {
-            const startState = anim.from;
-            const finalState = anim.to;
-
-            anim.from = finalState;
-            anim.to = startState;
-          }
-        }
-        if (elapsed >= 0 && elapsed <= anim.duration) {
-          const progress = anim.easing(elapsed / anim.duration);
-          obj[anim.property] = anim.from + (anim.to - anim.from) * progress;
-        }
-      });
+      this.runAnimations(obj, deltaTime);
     });
 
     // Очищаем холст и перерисовываем объекты
     this.ctx.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
+
+    if (this.customAnimation) {
+      this.customAnimation(deltaTime);
+    }
+
     Object.values(this.objects).forEach((obj) => this.draw(obj));
 
     requestAnimationFrame(this.animate);
