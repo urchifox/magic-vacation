@@ -32,11 +32,11 @@ export default class CanvasManager {
     this.canvasElement.height = this.canvasSizeGetter().height;
   }
 
-  async loadImages(data) {
-    const promises = Object.values(data).map((obj) => {
+  async loadImages() {
+    const promises = Object.values(this.objects).map((obj) => {
       return new Promise((resolve, reject) => {
         if (!obj.src) {
-          reject();
+          resolve();
         }
 
         const img = new Image();
@@ -56,10 +56,9 @@ export default class CanvasManager {
     });
 
     await Promise.all(promises);
-    this.objects = data;
   }
 
-  draw(obj) {
+  drawImage(obj) {
     let width = this.frame.width * (obj.width / 100);
     let height = this.frame.width * (obj.width / 100) * obj.ratio;
     let y = this.frame.height * (obj.top / 100);
@@ -143,11 +142,13 @@ export default class CanvasManager {
     // Очищаем холст и перерисовываем объекты
     this.ctx.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
 
-    if (this.customAnimation) {
-      this.customAnimation(deltaTime);
-    }
-
-    Object.values(this.objects).forEach((obj) => this.draw(obj));
+    Object.values(this.objects).forEach((obj) => {
+      if (`draw` in obj && typeof obj.draw === `function`) {
+        obj.draw();
+      } else if (`img` in obj) {
+        this.drawImage(obj);
+      }
+    });
 
     requestAnimationFrame(this.animate);
   }
