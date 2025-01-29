@@ -19,7 +19,7 @@ export default async () => {
           animations: [
             {
               start: 0,
-              duration: 3000,
+              duration: 2000,
               easing: easing.linear,
               property: `radius`,
               from: 0,
@@ -27,7 +27,7 @@ export default async () => {
             },
             {
               start: 0,
-              duration: 3000,
+              duration: 2000,
               easing: easing.linear,
               property: `deltasLength`,
               from: 0,
@@ -45,15 +45,7 @@ export default async () => {
           animations: [
             {
               start: 0,
-              duration: 1000,
-              easing: easing.linear,
-              property: `opacity`,
-              from: 0,
-              to: 1,
-            },
-            {
-              start: 0,
-              duration: 3000,
+              duration: 2000,
               easing: easing.linear,
               property: `translateX`,
               from: -45,
@@ -61,7 +53,7 @@ export default async () => {
             },
             {
               start: 0,
-              duration: 3000,
+              duration: 2000,
               easing: (t) => Math.sin(t * Math.PI * 2 * 0.7 + 5) * 0.4 + 0.5,
               property: `translateY`,
               from: -10,
@@ -69,11 +61,11 @@ export default async () => {
             },
             {
               start: 0,
-              duration: 3000,
+              duration: 2000,
               easing: (t) => t - 0.3,
               property: `rotate`,
               from: 80,
-              to: -6,
+              to: -20,
             }
           ]
         },
