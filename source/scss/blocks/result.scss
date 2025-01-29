@@ -61,8 +61,12 @@
 .result__image {
   position: absolute;
   top: 50%;
+  bottom: auto;
+  right: auto;
   left: 50%;
+  z-index: -1;
   opacity: 0;
+  transition: opacity 0.3s ease;
 
   picture {
     display: block;
@@ -76,6 +80,11 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
+  }
+
+  canvas {
+    display: block;
+    transform: translate(-50%, -50%);
   }
 
   .screen--show & {
