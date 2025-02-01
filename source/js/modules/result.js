@@ -1,4 +1,5 @@
 import result1 from './result1';
+import result3 from './result3';
 import runSvgAnimation from './runSvgAnimation';
 
 export default () => {
@@ -21,6 +22,9 @@ export default () => {
           runSvgAnimation(targetEl[0].querySelector(`.result__title object`), 1);
           if (i === 0) {
             result1();
+          }
+          if (i === 2) {
+            result3();
           }
         }, 100);
       });

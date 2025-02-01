@@ -15,7 +15,7 @@ export default class CanvasManager {
     this.frameH = frameSize.height;
 
     this.ctx.translate(this.frame.x, this.frame.y);
-    this.ctx.strokeRect(0, 0, this.frame.width, this.frame.height);
+    // this.ctx.strokeRect(0, 0, this.frame.width, this.frame.height);
   }
 
   get frame() {
@@ -60,7 +60,7 @@ export default class CanvasManager {
 
   drawImage(obj) {
     let width = this.frame.width * (obj.width / 100);
-    let height = this.frame.width * (obj.width / 100) * obj.ratio;
+    let height = this.frame.height * (obj.width / 100) * obj.ratio;
     let y = this.frame.height * (obj.top / 100);
     let x = this.frame.width * (obj.left / 100);
     this.ctx.save();
@@ -111,7 +111,7 @@ export default class CanvasManager {
     obj.animations.forEach((anim) => {
       const elapsed = deltaTime - anim.start;
       if (elapsed > anim.duration && anim.loop) {
-        anim.start += anim.duration;
+        anim.start += anim.duration + (anim.delay ? anim.delay : 0);
 
         if (anim.isLoopReversed) {
           const startState = anim.from;
@@ -140,7 +140,12 @@ export default class CanvasManager {
     });
 
     // Очищаем холст и перерисовываем объекты
-    this.ctx.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
+    this.ctx.clearRect(
+        (this.frame.width - this.canvasElement.width) / 2,
+        (this.frame.height - this.canvasElement.height) / 2,
+        this.canvasElement.width,
+        this.canvasElement.height
+    );
 
     Object.values(this.objects).forEach((obj) => {
       if (`draw` in obj && typeof obj.draw === `function`) {
